@@ -34,7 +34,15 @@ function start()
 		$("#codeList").append('<div class="col-xs-12 col-md-12"><h3 id="site' + i1 + '_name" class="text-center">' + mySites[i1].siteName + ' - <small>' + mySites[i1].siteUser+ ' </small></h3><h2 class="text-center" id="site' + i1 + '_code"></h2></div>');
 		
 		
-		$(divID).text(generateOTP(mySites[i1].siteSeed));		
+		
+			var OTP = generateOTP(mySites[i1].siteSeed);
+			
+			var OTPstring = OTP.toString();
+			
+			OTPstring = leftpad(OTPstring, 6, '0');
+		
+			$(divID).text(OTPstring);	
+		
 	}
 
 	   
@@ -60,7 +68,7 @@ function autoUpdate(base32secret)
     
     if (unixTime % 30 == 0)
     {
-		for(var i1=0;i1<keys.length;i1++)
+		for(var i1=0;i1<mySites.length;i1++)
 		{
 			var divID = "#site" + i1 + "_code";
 			
@@ -76,17 +84,22 @@ function autoUpdate(base32secret)
     }
  
 }
-
-
+/*
+* The actual function which processes the steps of obtaining the TOTP
+*/
 function generateOTP(base32secret)
 {
     var hexTime  = get30Increment();
-    var hexKey = base32tohex(base32secret);
+    var hexKey = removeSpaces(base32secret);
+        hexKey = base32tohex(hexKey);
     var keyTime = hasheyHashey(hexTime,hexKey);
     
     return keyTime;
 }
 
+/*
+* Counts the number of 30 second increments since the Unix Epoch
+*/
 function get30Increment()
 {
     var time = Math.round(new Date().getTime() / 1000);
@@ -96,7 +109,9 @@ function get30Increment()
     return hexMessage;
 }
 
-
+/*
+* Computes the HMAC-SHA1 of the time and base32 seed. Utilises CryptoJS
+*/
 function hasheyHashey(messageHex,keyHex)
 {
     var messageWords = CryptoJS.enc.Hex.parse(messageHex);
@@ -146,7 +161,7 @@ function leftpad(str, len, pad)
 }
 
 
-//I....I stole this from somewhere, don't recall where.
+//I....I stole this from somewhere, don't recall where. If I can remember I will credit.
 function base32tohex(base32)
 {
         var base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
@@ -159,6 +174,7 @@ function base32tohex(base32)
             var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
             bits += leftpad(val.toString(2), 5, '0');
         }
+        console.log(base32);
         
 		//convert to hex in 4 character 'chunks'
         for ( i = 0; i+4 <= bits.length; i+=4) 
@@ -172,7 +188,8 @@ function base32tohex(base32)
 
 function removeSpaces(base32)
 {
-	var str = base32.replace(/\s+/g, '');
+	var str = base32.replace(/\s/g,"");
+	console.log(str);
 	return str;
 }
 
