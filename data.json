@@ -1,0 +1,20 @@
+{
+  
+  "sites":[
+  {
+    "siteName": "Le Googol",
+    "siteUser": "fake@noexist.com",
+    "seed": "YSYETPUA7PAYP2U6"
+  },
+  {
+    "siteName": "Le Googwol",
+    "siteUser": "fake@noexist.com",
+    "seed": "YSYETPUA7PAYP2U6"
+  },
+  {
+    "siteName": "Le Gargle",
+    "siteUser": "fake@meme.com",
+    "seed": "YSYETPUAXXPAYP2U6"
+  }
+  ]
+}

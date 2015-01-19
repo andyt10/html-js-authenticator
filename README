@@ -1,0 +1,20 @@
+
+-- About -- 
+This is an html/js(jQuery) based implementation of the RFC6238 TOTP standard a la 'Google Authenticator'.
+
+-- Setup --
+
+Simply edit the <code>data.json</code> file with the necessary details as per the examples given. 
+
+-- A note about security -- 
+
+The obvious benefit of two-factor auth is that if your password is compromised, your account(s) are still secure.
+Needless to say, you should treat the seeds to your authenticator tokens as you would passwords. Wherever you use this make sure it is _relatively_ secure, using at least some HTML auth on the web server.
+
+
+-- Necessaries --
+This code utilises the wondeful CryptoJS libraries that can be found on <a href="http://code.google.com/p/crypto-js">Google Code</a> - created by Jeff Mott.
+
+-- Licence --
+
+Except where I use material licensed by third parties, bootstrap, jQuery & CryptoJS, this project is released in to the public domain.

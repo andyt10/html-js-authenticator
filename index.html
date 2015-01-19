@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>TOTP AUTHENTICATOR</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="tweaks.css">
+
+<script type="text/javascript" src="hmac-sha1.js"></script>
+<script type="text/javascript" src="enc-base64-min.js"></script>
+      <script src="totp.js"></script>
+
+	</head>
+	<body onload="start()">
+	    <div class="container">
+	        <h1 class="text-center">AUTHENTICATOR</h1>
+	        
+	            <div class="row" style="padding-bottom: 1em;">
+					<div class="col-xs-12 col-md-12">	        
+	        
+						<div class="progress">
+						<div id="timerBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="30" style="width: 0%;"></div>
+					</div>
+
+					
+				</div>
+					
+					<div id="codeList" class="row">
+	
+					</div>
+	            </div>
+	    </div>      
+	            
+	    <footer class="footer"> 
+	    	<div class="container">
+		    	<p class="text-muted text-center">RFC6238 TOTP Authenticator - Designed to emulate 'Google Authenticator'</p>
+
+		    	<p class="text-muted text-center">Utilises CryptoJS libraries - Copyright Jeff Mott: <small>code.google.com/p/crypto-js</small></p>
+	    	</div> 
+	    </footer>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	</body>
+</html>
