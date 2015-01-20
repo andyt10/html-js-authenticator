@@ -1,4 +1,8 @@
-
+/*
+* RFC 6238 TOTP script
+* Andy Thompson
+* This work is released in to the public domain.
+*/
 
 var mySites = [];
 
@@ -65,9 +69,24 @@ function autoUpdate(base32secret)
     
     $("#timerBar").width(progressPercentString);
     
+    if((unixTime % 30) >= 25)
+    {
+	    $("#timerBar").addClass("progress-bar-danger");
+
+		for(var i1=0;i1<mySites.length;i1++)
+		{	   
+			var divID = "#site" + i1 + "_code";
+		
+			$(divID).css("color","red");
+		} 
+		
+
+    }
+
     
     if (unixTime % 30 == 0)
     {
+
 		for(var i1=0;i1<mySites.length;i1++)
 		{
 			var divID = "#site" + i1 + "_code";
@@ -78,8 +97,13 @@ function autoUpdate(base32secret)
 			
 			OTPstring = leftpad(OTPstring, 6, '0');
 		
-			$(divID).text(OTPstring);		
+			$(divID).text(OTPstring);
+			$(divID).css("color","black");		
+		
 		}
+		
+		$(timerBar).removeClass("progress-bar-danger");
+
 
     }
  
@@ -174,7 +198,6 @@ function base32tohex(base32)
             var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
             bits += leftpad(val.toString(2), 5, '0');
         }
-        console.log(base32);
         
 		//convert to hex in 4 character 'chunks'
         for ( i = 0; i+4 <= bits.length; i+=4) 
@@ -189,7 +212,6 @@ function base32tohex(base32)
 function removeSpaces(base32)
 {
 	var str = base32.replace(/\s/g,"");
-	console.log(str);
 	return str;
 }
 
